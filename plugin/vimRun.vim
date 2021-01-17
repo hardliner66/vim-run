@@ -7,19 +7,32 @@
 " Author: Steve Biedermann
 " License: MIT + Apache 2.0
 
+if ! exists("g:use_async_vrun")
+    let g:use_async_vrun = 0
+    if ! exists("g:asyncrun_status")
+        let g:asyncrun_status = ""
+    endif
+endif
+
 function! vimRun#saveRun(cmd)
     execute ":w"
-    execute ":AsyncRun -raw ".a:cmd
+    if g:use_async_vrun
+        execute ":AsyncRun -raw ".a:cmd
+    else
+        execute ":!".a:cmd
+    endif
 endf
 
 function! vimRun#run()
-    " stop already potential running process
-    if g:asyncrun_status == "running"
-        execute ":AsyncStop!"
-        " for it to quit
-        while g:asyncrun_status == "running"
-            sleep 200m
-        endwhile
+    if g:use_async_vrun
+        " stop already potential running process
+        if g:asyncrun_status == "running"
+            execute ":AsyncStop!"
+            " for it to quit
+            while g:asyncrun_status == "running"
+                sleep 200m
+            endwhile
+        endif
     endif
 
     " RUN lines always take priority
