@@ -7,12 +7,12 @@
 " Author: Steve Biedermann
 " License: MIT + Apache 2.0
 
-function! s:saveRun(cmd)
+function! vimRun#saveRun(cmd)
     execute ":w"
     execute ":AsyncRun -raw ".a:cmd
 endf
 
-function! s:Run()
+function! vimRun#run()
     " stop already potential running process
     if g:asyncrun_status == "running"
         execute ":AsyncStop!"
@@ -29,7 +29,7 @@ function! s:Run()
         let induceResult=matchlist(line, '^\A\+\[RUN\]\s*\(.*\)') " regex: start-of-string, one-and-more-non-alphabetic-chars,[RUN],any-whitespaces,group-0-any
         if !empty(induceResult)
             let cmd = get(induceResult, 1)
-            call s:saveRun(cmd)
+            call vimRun#saveRun(cmd)
             return 0
         endif
 
@@ -39,32 +39,32 @@ function! s:Run()
     " if no explicitly set RUN was found, run something depending on syntax
     let filetype = &filetype
     if filetype == "nim"
-        call s:saveRun("nim c -r %")
+        call vimRun#saveRun("nim c -r %")
     elseif filetype == "python"
-        call s:saveRun("python %")
+        call vimRun#saveRun("python %")
     elseif filetype == "php"
-        call s:saveRun("php %")
+        call vimRun#saveRun("php %")
     elseif filetype == "html"
-        call s:saveRun("chromium %")
+        call vimRun#saveRun("chromium %")
     elseif filetype == "go"
         " check if file ends with `_test`
         if expand("%:r") =~ "_test"
             let l:currentTag = tagbar#currenttag('[%s] ','')[1:-5]
-            call s:saveRun("go test -run " . l:currentTag)
+            call vimRun#saveRun("go test -run " . l:currentTag)
         else
-            call s:saveRun("go run %")
+            call vimRun#saveRun("go run %")
         endif
     elseif filetype == "elixir"
-        call s:saveRun("elixir %")
+        call vimRun#saveRun("elixir %")
     elseif filetype == "groovy"
-        call s:saveRun("groovy %")
+        call vimRun#saveRun("groovy %")
     elseif filetype == "perl"
-        call s:saveRun("perl %")
+        call vimRun#saveRun("perl %")
     elseif filetype == "javascript"
-        call s:saveRun("node %")
+        call vimRun#saveRun("node %")
     else
-        call s:saveRun("./%")
+        call vimRun#saveRun("./%")
     endif
 endf
 
-command! VRun call s:Run()
+command! VRun call vimRun#run()
