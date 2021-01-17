@@ -4,6 +4,16 @@ Checks if one of the first lines contains a the string `[RUN]` and executes what
 # Usage
 The plugin provides the command VRun in order to exectue the `[RUN]` section
 
+C Example:
+```c
+// [RUN] gcc % && ./a.out
+#include <stdio.h>
+
+int main() {
+    printf("Hello world!");
+}
+```
+
 This can be bound to whatever you like. For example:
 ```vim
 nnoremap <silent><leader>r
