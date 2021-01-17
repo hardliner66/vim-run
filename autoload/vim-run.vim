@@ -1,9 +1,9 @@
-func s:saveRun(cmd)
+function! s:saveRun(cmd)
     execute ":w"
     execute ":AsyncRun -raw ".a:cmd
 endf
 
-func! vimRun#Run()
+function! vimRun#Run()
     " stop already potential running process
     if g:asyncrun_status == "running"
         execute ":AsyncStop!"

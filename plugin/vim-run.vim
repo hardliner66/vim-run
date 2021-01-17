@@ -1,1 +1,1 @@
-com! VRun call vimRun#Run()
+command! VRun call vimRun#Run()
