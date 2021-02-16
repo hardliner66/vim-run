@@ -16,16 +16,12 @@ int main() {
 
 This can be bound to whatever you like. For example:
 ```vim
-nnoremap <silent><leader>r
+nnoremap <silent><leader>r :VRun<cr>
+nnoremap <silent><leader>ra :VRun<Asynccr>
 ```
 
 # Settings
 
-If you have [skywind3000/asyncrun.vim](https://github.com/skywind3000/asyncrun.vim)
-installed you can use the following to make use of it.
+The async function depends on: [skywind3000/asyncrun.vim](https://github.com/skywind3000/asyncrun.vim)
 
-```vim
-let g:use_async_vrun = 1
-```
-
-In that case the output will be sent to the quickfix windows. (`:copen`)
+In case of the async function the output will be sent to the quickfix windows. (`:copen`)
