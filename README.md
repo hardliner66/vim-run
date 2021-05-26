@@ -17,7 +17,7 @@ int main() {
 This can be bound to whatever you like. For example:
 ```vim
 nnoremap <silent><leader>r :VRun<cr>
-nnoremap <silent><leader>ra :VRun<Asynccr>
+nnoremap <silent><leader>ra :VRunAsync<cr>
 ```
 
 # Settings
